@@ -1,12 +1,23 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { PrismaService } from './prisma.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private prisma: PrismaService,
+  ){}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('hello')
+  async getHello(){
+    const aranha = await this.prisma.aranha.create({
+        data: {
+        id: '5',
+        nome: 'Peter Porker',
+        nomeHeroi: 'Porco-Aranha',
+      },
+    });
+    return {
+      aranha,
+    };
   }
 }
