@@ -9,15 +9,8 @@ export class AppController {
 
   @Get('hello')
   async getHello(){
-    const aranha = await this.prisma.aranha.create({
-        data: {
-        id: '5',
-        nome: 'Peter Porker',
-        nomeHeroi: 'Porco-Aranha',
-      },
-    });
-    return {
-      aranha,
-    };
-  }
-}
+  const aranhas = await this.prisma.aranha.findMany();
+  return {
+    aranhas,
+  };
+}}
